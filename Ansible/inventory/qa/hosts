@@ -1,0 +1,10 @@
+[palace]
+10.2.2.2 ansible_network_os=ios
+10.2.2.30 ansible_network_os=ios
+10.2.2.12 ansible_network_os=ios
+10.2.2.10 ansible_network_os=ios
+
+
+
+[boulder]
+10.2.2.3 ansible_network_os=ios

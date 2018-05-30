@@ -1,0 +1,45 @@
+<table>
+
+  <th>
+
+  {{ inventory_hostname }}
+  </th>
+
+
+  <tr>
+    <th>VLAN ID</th>
+    <th>VLAN NAME</th>
+  </tr>
+
+
+{% for i in range(4094) %}
+  <tr>
+
+    <td>
+
+    {{ i }}
+
+    </td>
+
+    <td>
+
+    {% for vlans in parsedVlanTable.msg.vlans.values() %}
+    {%- if i == vlans.vlan_id -%}
+
+
+    {{ vlans.name }}
+
+
+       {% else %}
+
+    {% endif %}
+
+{% endfor %}
+    </td>
+
+  </tr>
+
+
+{% endfor %}
+
+</table>

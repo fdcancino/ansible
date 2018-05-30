@@ -1,0 +1,37 @@
+---
+
+- name: VLAN Jinja Test
+  connection: network_cli
+  hosts: palace
+  tasks:
+
+    - name: Show VLAN
+      ios_command:
+        commands: show vlan
+      # command "show vlan" is sent to the host
+      register: vlanTable
+      # vlanTable will hold the output of "show vlan"
+
+    - name: Parse to JSON
+      debug:
+        msg: "{{ vlanTable.stdout[0] | parse_cli('./files/spec.yaml') }}"
+      register: parsedVlanTable
+
+    - name: save output
+      template:
+       src: ./template/vlanparse_tables.j2
+       dest: ./files/html_tables/{{ inventory_hostname}}_table.html
+
+    - name: combine report
+      assemble:
+       src: ./files/html_tables
+       dest: ./template/full_tables.html
+       delimiter: " "
+      run_once: true
+
+    - name: combine report2
+      template:
+       src: ./template/vlanparse_html.j2
+       dest: ./files/money.html
+       delimiter: " "
+      run_once: true

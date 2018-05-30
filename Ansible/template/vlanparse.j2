@@ -1,0 +1,7 @@
+{{ inventory_hostname }}
+
+| VLAN ID | VLAN NAME |
+|---------|-----------|
+{% for vlans in parsedVlanTable.msg.vlans.values() %}
+| {{ vlans.vlan_id }} | {{ vlans.name}} |
+{% endfor %}

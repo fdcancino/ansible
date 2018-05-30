@@ -1,0 +1,23 @@
+---
+
+- name: Network Getting Started First Playbook Extended
+  connection: network_cli
+  hosts: all
+  tasks:
+
+
+
+    - name: Update the hostname
+      ios_config:
+        backup: yes
+        lines:
+          - ip default-gateway {{ gw }}
+
+    - name: Get changed config for ios
+      ios_command:
+        commands: show run | in default-gateway
+      register: output
+
+    - name: Display the changed config
+      debug:
+        var: output.stdout
